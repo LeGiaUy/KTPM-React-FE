@@ -1,9 +1,16 @@
 import { NavLink } from "react-router-dom";
 import DarkMode from "./DarkMode.jsx";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 function Navbar() {
-  const baseLink =
-    "text-sm transition hover:text-slate-900 data-[active=true]:text-sky-600 data-[active=true]:font-semibold";
+  const baseLink = "text-sm transition hover:text-slate-900";
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    const ok = window.confirm("Bạn có chắc chắn muốn đăng xuất?");
+    if (!ok) return;
+    logout();
+  };
 
   return (
     <header className="border-b bg-white/80 backdrop-blur">
@@ -25,7 +32,9 @@ function Navbar() {
             to="/"
             end
             className={({ isActive }) =>
-              `${baseLink} ${isActive ? "text-sky-600 font-semibold" : "text-slate-600"}`
+              `${baseLink} ${
+                isActive ? "text-sky-600 font-semibold" : "text-slate-600"
+              }`
             }
           >
             Trang chủ
@@ -33,7 +42,9 @@ function Navbar() {
           <NavLink
             to="/products"
             className={({ isActive }) =>
-              `${baseLink} ${isActive ? "text-sky-600 font-semibold" : "text-slate-600"}`
+              `${baseLink} ${
+                isActive ? "text-sky-600 font-semibold" : "text-slate-600"
+              }`
             }
           >
             Sản phẩm
@@ -45,12 +56,46 @@ function Navbar() {
 
         <div className="flex items-center gap-3">
           <DarkMode />
-          <button className="hidden rounded-full border border-slate-200 px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-50 md:inline">
-            Đăng nhập
-          </button>
-          <button className="rounded-full bg-sky-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-sky-700">
-            Giỏ hàng (0)
-          </button>
+          {user ? (
+            <div className="flex items-center gap-2 text-xs">
+              <span className="hidden rounded-full bg-sky-50 px-3 py-1 font-medium text-sky-700 md:inline">
+                Xin chào, {user.username}
+              </span>
+              <button
+                onClick={handleLogout}
+                className="rounded-full border border-slate-200 px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-50"
+              >
+                Đăng xuất
+              </button>
+            </div>
+          ) : (
+            <>
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  `hidden rounded-full border border-slate-200 px-3 py-1.5 text-xs md:inline ${
+                    isActive
+                      ? "text-sky-600 border-sky-300 bg-sky-50"
+                      : "text-slate-600 hover:bg-slate-50"
+                  }`
+                }
+              >
+                Đăng nhập
+              </NavLink>
+              <NavLink
+                to="/register"
+                className={({ isActive }) =>
+                  `rounded-full px-3 py-1.5 text-xs font-medium ${
+                    isActive
+                      ? "bg-sky-700 text-white"
+                      : "bg-sky-600 text-white hover:bg-sky-700"
+                  }`
+                }
+              >
+                Đăng ký
+              </NavLink>
+            </>
+          )}
         </div>
       </div>
     </header>
