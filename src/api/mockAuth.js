@@ -10,6 +10,14 @@ const USERS = [
     role: "student",
     address: "KTX Khu A, ĐHQG",
   },
+  {
+    id: 2,
+    username: "admin",
+    email: "admin@example.com",
+    password: "123456", // mock admin
+    role: "admin",
+    address: "Phòng bộ môn KTPM",
+  },
 ];
 
 export function loginApi({ email, password }) {
@@ -49,6 +57,23 @@ export function registerApi(payload) {
       USERS.push(newUser);
       resolve({ user: { ...newUser, password: undefined } });
     }, 500);
+  });
+}
+
+// Đổi mật khẩu (mock) dựa trên email + mật khẩu cũ
+export function changePasswordApi({ email, oldPassword, newPassword }) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const user = USERS.find(
+        (u) => u.email === email && u.password === oldPassword,
+      );
+      if (!user) {
+        reject(new Error("Mật khẩu hiện tại không đúng"));
+        return;
+      }
+      user.password = newPassword;
+      resolve({ success: true });
+    }, 400);
   });
 }
 

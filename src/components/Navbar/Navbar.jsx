@@ -54,6 +54,18 @@ function Navbar() {
           <button className="text-sm text-slate-600 hover:text-slate-900">
             Khuyến mãi
           </button>
+          {user?.role === "admin" && (
+            <NavLink
+              to="/admin"
+              className={({ isActive }) =>
+                `${baseLink} ${
+                  isActive ? "text-amber-600 font-semibold" : "text-amber-500"
+                }`
+              }
+            >
+              Admin
+            </NavLink>
+          )}
         </nav>
 
         <div className="flex items-center gap-3">
@@ -73,6 +85,18 @@ function Navbar() {
             </span>
           </NavLink>
           <DarkMode />
+          {user && (
+            <NavLink
+              to="/profile"
+              className={({ isActive }) =>
+                `hidden rounded-full border border-slate-200 px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-50 md:inline ${
+                  isActive ? "bg-sky-50 border-sky-300 text-sky-700" : ""
+                }`
+              }
+            >
+              Tài khoản
+            </NavLink>
+          )}
           {user ? (
             <div className="flex items-center gap-2 text-xs">
               <span className="hidden rounded-full bg-sky-50 px-3 py-1 font-medium text-sky-700 md:inline">
@@ -87,18 +111,20 @@ function Navbar() {
             </div>
           ) : (
             <>
-              <NavLink
-                to="/login"
-                className={({ isActive }) =>
-                  `hidden rounded-full border border-slate-200 px-3 py-1.5 text-xs md:inline ${
-                    isActive
-                      ? "text-sky-600 border-sky-300 bg-sky-50"
-                      : "text-slate-600 hover:bg-slate-50"
-                  }`
-                }
-              >
-                Đăng nhập
-              </NavLink>
+              {!user && (
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    `hidden rounded-full border border-slate-200 px-3 py-1.5 text-xs md:inline ${
+                      isActive
+                        ? "text-sky-600 border-sky-300 bg-sky-50"
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`
+                  }
+                >
+                  Đăng nhập
+                </NavLink>
+              )}
               <NavLink
                 to="/register"
                 className={({ isActive }) =>
