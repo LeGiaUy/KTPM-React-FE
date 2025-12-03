@@ -1,4 +1,7 @@
+import { useCart } from "../../context/CartContext.jsx";
+
 function ProductCard({ book }) {
+  const { addToCart } = useCart();
   const primaryImage =
     book.images?.find((img) => img.is_primary) ?? book.images?.[0];
 
@@ -28,7 +31,11 @@ function ProductCard({ book }) {
         <p className="mt-2 text-sm font-semibold text-sky-700">
           {priceNumber.toLocaleString("vi-VN")} đ
         </p>
-        <button className="mt-3 inline-flex items-center justify-center rounded-lg border border-sky-200 bg-sky-50 px-3 py-1.5 text-xs font-medium text-sky-700 hover:bg-sky-100">
+        <button
+          type="button"
+          onClick={() => addToCart(book)}
+          className="mt-3 inline-flex items-center justify-center rounded-lg border border-sky-200 bg-sky-50 px-3 py-1.5 text-xs font-medium text-sky-700 hover:bg-sky-100"
+        >
           Thêm vào giỏ
         </button>
       </div>
