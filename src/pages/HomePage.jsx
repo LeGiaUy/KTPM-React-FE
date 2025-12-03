@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchFeaturedBooks } from "../api/mockBooks";
+import { fetchFeaturedBooks } from "../api/booksService.js";
 import Navbar from "../components/Navbar/Navbar.jsx";
 import Footer from "../components/Footer/Footer.jsx";
 import Hero from "../components/Hero/Hero.jsx";
