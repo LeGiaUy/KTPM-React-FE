@@ -1,10 +1,12 @@
 import Navbar from "../components/Navbar/Navbar.jsx";
 import Footer from "../components/Footer/Footer.jsx";
 import { useCart } from "../context/CartContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 function CartPage() {
   const { items, totalItems, totalPrice, updateQuantity, removeFromCart, clearCart } =
     useCart();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
@@ -148,9 +150,10 @@ function CartPage() {
               </p>
               <button
                 type="button"
+                onClick={() => navigate("/checkout")}
                 className="mt-2 w-full rounded-lg bg-sky-600 px-4 py-2 text-xs font-medium text-white hover:bg-sky-700"
               >
-                Tiến hành đặt hàng (mock)
+                Tiến hành đặt hàng
               </button>
             </aside>
           </div>
