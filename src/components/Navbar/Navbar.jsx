@@ -1,10 +1,12 @@
 import { NavLink } from "react-router-dom";
 import DarkMode from "./DarkMode.jsx";
 import { useAuth } from "../../context/AuthContext.jsx";
+import { useCart } from "../../context/CartContext.jsx";
 
 function Navbar() {
   const baseLink = "text-sm transition hover:text-slate-900";
   const { user, logout } = useAuth();
+  const { totalItems } = useCart();
 
   const handleLogout = () => {
     const ok = window.confirm("Bạn có chắc chắn muốn đăng xuất?");
@@ -55,6 +57,21 @@ function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <NavLink
+            to="/cart"
+            className={({ isActive }) =>
+              `relative inline-flex items-center rounded-full border px-3 py-1.5 text-xs ${
+                isActive
+                  ? "border-sky-500 bg-sky-50 text-sky-700"
+                  : "border-slate-200 text-slate-600 hover:bg-slate-50"
+              }`
+            }
+          >
+            Giỏ hàng
+            <span className="ml-1 inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-sky-600 px-1 text-[10px] font-semibold text-white">
+              {totalItems}
+            </span>
+          </NavLink>
           <DarkMode />
           {user ? (
             <div className="flex items-center gap-2 text-xs">
