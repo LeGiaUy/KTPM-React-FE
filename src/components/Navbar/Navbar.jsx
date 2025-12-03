@@ -1,6 +1,10 @@
+import { NavLink } from "react-router-dom";
 import DarkMode from "./DarkMode.jsx";
 
 function Navbar() {
+  const baseLink =
+    "text-sm transition hover:text-slate-900 data-[active=true]:text-sky-600 data-[active=true]:font-semibold";
+
   return (
     <header className="border-b bg-white/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
@@ -16,11 +20,27 @@ function Navbar() {
           </div>
         </div>
 
-        <nav className="hidden items-center gap-6 text-sm text-slate-600 md:flex">
-          <button className="text-sky-600 font-medium">Trang chủ</button>
-          <button className="hover:text-slate-900">Sách mới</button>
-          <button className="hover:text-slate-900">Best seller</button>
-          <button className="hover:text-slate-900">Khuyến mãi</button>
+        <nav className="hidden items-center gap-6 md:flex">
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              `${baseLink} ${isActive ? "text-sky-600 font-semibold" : "text-slate-600"}`
+            }
+          >
+            Trang chủ
+          </NavLink>
+          <NavLink
+            to="/products"
+            className={({ isActive }) =>
+              `${baseLink} ${isActive ? "text-sky-600 font-semibold" : "text-slate-600"}`
+            }
+          >
+            Sản phẩm
+          </NavLink>
+          <button className="text-sm text-slate-600 hover:text-slate-900">
+            Khuyến mãi
+          </button>
         </nav>
 
         <div className="flex items-center gap-3">
@@ -38,5 +58,4 @@ function Navbar() {
 }
 
 export default Navbar;
-
 
