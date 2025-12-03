@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar/Navbar.jsx";
 import Footer from "../components/Footer/Footer.jsx";
 import Heading from "../components/Shared/Heading.jsx";
 import ProductGrid from "../components/Product/ProductGrid.jsx";
-import { fetchFeaturedBooks } from "../api/mockBooks.js";
+import { fetchFeaturedBooks } from "../api/booksService.js";
 
 function ProductPage() {
   const [books, setBooks] = useState([]);
